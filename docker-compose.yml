@@ -2,7 +2,7 @@ version: '3'
 
 services:
   nginx:
-    container_name: lemp_nginx_dropcarbon
+    container_name: lemp_nginx_formalin
     image: nginx:stable-alpine
     restart: unless-stopped
     volumes:
@@ -14,7 +14,7 @@ services:
       - "80:80"
 
   php:
-    container_name: lemp_php_dropcarbon
+    container_name: lemp_php_formalin
     image: peerasakp/php7-4
     restart: unless-stopped
     volumes:
@@ -23,7 +23,7 @@ services:
       - "9000"
 
   db:
-    container_name: lemp_mariadb_dropcarbon
+    container_name: lemp_mariadb_formalin
     image: mariadb:10.3
     restart: unless-stopped
     volumes:
@@ -33,7 +33,7 @@ services:
       - ./mariadb/db.env
   
   phpmyadmin:
-    container_name: lemp_phpmyadmin_dropcarbon
+    container_name: lemp_phpmyadmin_formalin
     image: phpmyadmin
     restart: always
     ports:
