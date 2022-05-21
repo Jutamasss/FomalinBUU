@@ -241,6 +241,12 @@
         });
     });
 
+    $(document).ready(function() {
+        $('#com_menu').click(function() {
+            $(this).next('#com_sub_menu').slideToggle();
+        });
+    });
+
 
       /*
      * load_data

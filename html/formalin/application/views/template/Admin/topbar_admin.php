@@ -74,12 +74,30 @@ if (!isset($_SESSION['tab_number'])) {
                         <h5 class="h5-topbar">จัดการแบนเนอร์</h5>
                     </a>
                 </li>
-                <li class="nav-item  <?php if ($_SESSION['tab_number'] == 3) echo "active custom-a"; ?>" id="home">
-                    <a class="nav-link  <?php if ($_SESSION['tab_number'] == 3) echo "custom-a"; ?>" href="<?php echo base_url() . 'Admin/Manage_company/Admin_approval_company' ?>">
+
+                <!-- Drop down list event menu -->
+                <li class="nav-item  <?php if ($_SESSION['tab_number'] == 3 || $_SESSION['tab_number'] == 10) echo "active custom-a"; ?>" >
+                    <a class="nav-link  <?php if ($_SESSION['tab_number'] == 3 || $_SESSION['tab_number'] == 10) echo "custom-a"; ?>" href="#" id="com_menu">
                         <i class="material-icons">store</i>
-                        <h5 class="h5-topbar">จัดการสถานที่</h5>
+                        <h5 class="h5-topbar">จัดการสถานที่<i class="material-icons dropdown_sub_menu">expand_more</i></h5>
                     </a>
+
+                    <ul class="com_sub_menu" id="com_sub_menu">
+                        <li class="nav-item  <?php if ($_SESSION['tab_number'] == 3) echo "active custom-a"; ?>">
+                            <a class="nav-link  <?php if ($_SESSION['tab_number'] == 3) echo "custom-a"; ?>" href="<?php echo base_url() . 'Admin/Manage_company/Admin_approval_company' ?>">
+                                <i class="material-icons">store</i>
+                                <h5 class="h5-topbar">อนุมัติสถานที่</h5>
+                            </a>
+                        </li>
+                        <li class="nav-item  <?php if ($_SESSION['tab_number'] == 10) echo "active custom-a"; ?>">
+                            <a class="nav-link  <?php if ($_SESSION['tab_number'] == 10) echo "custom-a"; ?>" href="<?php echo base_url() . 'Admin/Manage_restaurant/Admin_restaurant_list/show_data_list' ?>">
+                                <i class="material-icons">store</i>
+                                <h5 class="h5-topbar">จัดการร้านอาหาร</h5>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+                <!--End Drop down list event menu -->
 
                 <!-- Drop down list event menu -->
                 <li class="nav-item event_menu <?php if ($_SESSION['tab_number'] == 4 || $_SESSION['tab_number'] == 8) echo "active custom-a"; ?>">
@@ -135,6 +153,7 @@ if (!isset($_SESSION['tab_number'])) {
                         </li>
                     </ul>
                 </li>
+    
                 <hr>
 
                 <!-- End Drop down list promotions menu -->
@@ -176,6 +195,10 @@ if (!isset($_SESSION['tab_number'])) {
         }
 
         .sidebar .nav .promo_sub_menu {
+            display: none;
+        }
+
+        .sidebar .nav .com_sub_menu {
             display: none;
         }
     </style>

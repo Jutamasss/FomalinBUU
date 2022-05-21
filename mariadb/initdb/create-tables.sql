@@ -10665,6 +10665,190 @@ INSERT INTO `dcs_tou_promotion` (`tou_id`, `tou_pro_status`, `tou_pro_id`, `tou_
 
 -- --------------------------------------------------------
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dcs_restaurant`
+--
+
+CREATE TABLE `dcs_restaurant` (
+  `res_id` int(10) NOT NULL COMMENT 'ไอดีของตารางร้านอาหาร',
+  `res_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT 'รหัสของร้านอาหาร เช่น K01',
+  `res_name` varchar(100) NOT NULL COMMENT 'ชื่อของร้านอาหาร',
+  `res_description` varchar(2000) COLLATE utf8_unicode_ci NOT NULL COMMENT 'รายละเอียดของร้านอาหาร',
+  `res_type` int(10) DEFAULT 1 COMMENT 'ประเภทของร้านอาหาร ในที่สาธารณะ=1 ในสถานประกอบการ=2',
+  `res_lat` float(20,6) DEFAULT NULL COMMENT 'latitude ของร้านอาหาร',
+  `res_lon` float(20,6) DEFAULT NULL COMMENT 'logtitude ของร้านอาหาร',
+  `res_ent_id` int(10) DEFAULT NULL COMMENT 'ไอดีของผู้ประกอบการ จากตาราง dcs_entrepreneur',
+  `res_tel` varchar(12) COLLATE utf8_unicode_ci NOT NULL COMMENT 'เบอร์โทรร้านอาหาร',
+  `res_location` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ที่อยู่ของร้านอาหาร เป็น ตัวอักษร คำ',
+  `res_cat_id` int(10) DEFAULT 6 COMMENT 'หมวดหมู่ร้านอาหาร ของ dcs_com_category',
+  `res_par_id` int(10) NOT NULL COMMENT 'ไอดีของตำบล จากตาราง dcs_parish'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `dcs_restaurant`
+--
+
+INSERT INTO `dcs_restaurant` (`res_id`, `res_code`, `res_name`, `res_description`, `res_type`, `res_lat`, `res_lon`, `res_ent_id`, `res_tel`, `res_location`, `res_cat_id`, `res_par_id`) VALUES
+(1, 'K01', 'ร้านอาหาร A',	'รายละเอียดของร้านอาหาร A', 1, 13.272218,	100.921890, 1, '0905540645', '11/11 หมู่5', 6, 1124),
+(2, 'K02', 'ร้านอาหาร B',	'รายละเอียดของร้านอาหาร B', 1, 13.272218,	100.921890, 1, '0905540645', '11/11 หมูุ่6', 6, 1124),
+(3, 'K03', 'ร้านอาหาร C',	'รายละเอียดของร้านอาหาร C', 1, NULL,	NULL, 1, '0905540645', '11/11 หมู่7', 6, 1124),
+(4, 'K04', 'ร้านอาหาร D',	'รายละเอียดของร้านอาหาร D', 1, NULL,	NULL, 1, '0905540645', '11/11 หมู่8', 6, 1124);
+
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dcs_ingredient`
+--
+
+CREATE TABLE `dcs_ingredient` (
+  `ing_id` int(10) NOT NULL COMMENT 'ไอดีของวัตถุดิบ',
+  `ing_name` varchar(100) NOT NULL COMMENT 'ชื่อของวัตถุดิบ',
+  `ing_res_id` int(10) NOT NULL COMMENT 'ไอดีของร้าอาหาร จากตาราง dcs_restaurant'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `dcs_ingredient`
+--
+
+INSERT INTO `dcs_ingredient` (`ing_id`, `ing_name`, `ing_res_id`) VALUES
+(1, 'กุ้ง', 1),
+(2, 'หมึก', 1),
+(3, 'ปลา', 1),
+(4, 'ปลา', 2),
+(5, 'มะละกอ', 2),
+(6, 'ไก่', 3),
+(7, 'ไก่', 4);
+
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dcs_restaurant_img`
+--
+
+CREATE TABLE `dcs_restaurant_img` (
+  `rimg_img_path` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ที่อยู่เก็บไฟล์ รูปภาพร้านอาหาร',
+  `rimg_img_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ชื่อรูปร้านอาหาร',
+  `rimg_res_id` int(10) NOT NULL COMMENT 'ไอดีของร้านอาหารจากตาราง dcs_restaurant'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dcs_ingredient_img`
+--
+
+CREATE TABLE `dcs_ingredient_img` (
+  `ingimg_img_path` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ที่อยู่เก็บไฟล์ รูปภาพร้านอาหาร',
+  `ingimg_img_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ชื่อรูปร้านอาหาร',
+  `ingimg_ing_id` int(10) NOT NULL COMMENT 'ไอดีของวัตถุดิบจากตาราง dcs_ingredient'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dcs_history_formalin_check`
+--
+
+CREATE TABLE `dcs_history_formalin_check` (
+  `his_fom_id` int(10) NOT NULL COMMENT 'ไอดีของประวัติการตรวจสารฟอร์มาลีนของวัตถุดิบ',
+  `his_fom_status` int(10) DEFAULT 1 COMMENT 'สถานะของการตรวจฟอร์มาลีนของวัตถุดิบ 1=รอตรวจสอบ 2=ผ่านเกณฑ์ 3=ไม่ผ่านเกณฑ์',
+  `his_fom_add_time` timestamp NOT NULL DEFAULT convert_tz(current_timestamp(),@@session.time_zone,'+07:00') COMMENT 'วันที่ลงทะบียน',
+  `his_fom_img_path` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ที่อยู่เก็บไฟล์ รูปภาพการตรวจสารฟอร์มาลีน',
+  `his_fom_img_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ชื่อรูปการตรวจสารฟอร์มาลีน',
+  `his_ing_id` int(10) NOT NULL COMMENT 'ไอดีของวัตถุดิบ จากตาราง dcs_ingredient'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dcs_history_res_check`
+--
+
+CREATE TABLE `dcs_history_res_check` (
+  `his_re_id` int(10) NOT NULL COMMENT 'ไอดีของประวัติการตรวจของร้านอาหาร',
+  `his_re_status` int(10) DEFAULT 1 COMMENT 'สถานะของการตรวจฟอร์มาลีนของร้านอาหาร 1=รอตรวจสอบ 2=ผ่านเกณฑ์ 3=ไม่ผ่านเกณฑ์',
+  `his_re_add_time` timestamp NOT NULL DEFAULT convert_tz(current_timestamp(),@@session.time_zone,'+07:00') COMMENT 'วันที่ลงทะบียน',
+  `his_exp_id` int(10) NOT NULL COMMENT 'ไอดีของผู้เชี่ยวชาญ จากตาราง dcs_expert'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dcs_expert`
+--
+
+CREATE TABLE `dcs_expert` (
+  `expe_id` int(10) NOT NULL COMMENT 'ไอดีของผู้เชี่ยวชาญ',
+  `expe_fname` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ชื่อจริงของผู้เชี่ยวชาญ',
+  `expe_lname` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'นามสกุลของผู้เชี่ยวชาญ',
+  `expe_username` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT ' username ',
+  `expe_password` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'รหัสผ่าน',
+  `expe_status` int(1) DEFAULT 1 COMMENT ' สถานะของผู้เชี่ยวชาญ 1=กำลังใช้งาน 2=ถูกระงับ',
+  `expe_pre_id` int(10) NOT NULL COMMENT 'คำนำหน้า จากตาราง dcs_prefix',
+  `expe_regis_date` timestamp NOT NULL DEFAULT convert_tz(current_timestamp(),@@session.time_zone,'+07:00') COMMENT 'วันที่ลงทะบียน'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `dcs_expert`
+--
+
+INSERT INTO `dcs_expert` (`expe_id`, `expe_fname`, `expe_lname`, `expe_username`, `expe_password`, `expe_status`, `expe_pre_id`, `expe_regis_date`) VALUES
+(1,	'นันทสิริ',	'สายแวว',	'staff_1',	'505dcb6961f3f927df15f9fec5ff7ae8',	1,	3, '2022-02-13 21:42:29'),
+(2,	'จุฑามาศ',	'ถนอมใจ',	'staff_2',	'505dcb6961f3f927df15f9fec5ff7ae8',	1,	3, '2022-02-13 21:42:29');
+
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dcs_expert_document`
+--
+
+CREATE TABLE `dcs_expert_document` (
+  `exp_doc_path` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ที่อยู่จัดเก็บของเอกสาร ',
+  `exp_doc_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'เอกสารยืนยันตัวตนของผู้เชี่ยวชาญ ',
+  `exp_doc_id` int(10) NOT NULL COMMENT ' ไอดีของ ผู้เชี่ยวชาญ จากตาราง dcs_expert '
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `dcs_expert_document`
+--
+
+INSERT INTO `dcs_expert_document` (`exp_doc_path`, `exp_doc_name`, `exp_doc_id`) VALUES
+('613257f20bbb03.90906788.pdf',	'รูปบัตรประชาชน',	1),
+('620bd06a8f7f89.82446371.jpg',	'c9996b79-225f-4da6-9322-34f17b345e4c.jpg',	2);
+
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dcs_history_res_check`
+--
+
+CREATE TABLE `dcs_rating` (
+  `rat_id` int(10) NOT NULL COMMENT 'ไอดีของการโหวต',
+  `rat_num_user` int(10) DEFAULT 1 COMMENT 'จำนวนคนที่โหวต',
+  `rat_comment` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ความคิดเห็นของนักท่องเที่ยว ',
+  `rat_add_time` timestamp NOT NULL DEFAULT convert_tz(current_timestamp(),@@session.time_zone,'+07:00') COMMENT 'วันที่โหวต',
+  `rat_res_id` int(10) NOT NULL COMMENT ' ไอดีของ ร้านอาหาร จากตาราง dcs_restaurant '
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
 --
 -- Indexes for dumped tables
 --
@@ -10872,6 +11056,71 @@ ALTER TABLE `dcs_tou_promotion`
   ADD KEY `tou_pro_id` (`tou_pro_id`);
 
 --
+-- Indexes for table `dcs_restaurant`
+--
+ALTER TABLE `dcs_restaurant`
+  ADD PRIMARY KEY (`res_id`),
+  ADD KEY `res_ent_id` (`res_ent_id`),
+  ADD KEY `res_cat_id` (`res_cat_id`),
+  ADD KEY `res_par_id` (`res_par_id`);
+
+--
+-- Indexes for table `dcs_ingredient`
+--
+ALTER TABLE `dcs_ingredient`
+  ADD PRIMARY KEY (`ing_id`),
+  ADD KEY `ing_res_id` (`ing_res_id`);
+
+--
+-- Indexes for table `dcs_ingredient_img`
+--
+ALTER TABLE `dcs_ingredient_img`
+  ADD PRIMARY KEY (`ingimg_img_path`),
+  ADD KEY `ingimg_ing_id` (`ingimg_ing_id`);
+
+--
+-- Indexes for table `dcs_ingredient_img`
+--
+ALTER TABLE `dcs_restaurant_img`
+  ADD PRIMARY KEY (`rimg_img_path`),
+  ADD KEY `rimg_res_id` (`rimg_res_id`);
+
+--
+-- Indexes for table `dcs_history_formalin_check`
+--
+ALTER TABLE `dcs_history_formalin_check`
+  ADD PRIMARY KEY (`his_fom_id`),
+  ADD KEY `his_ing_id` (`his_ing_id`);
+
+--
+-- Indexes for table `dcs_history_res_check`
+--
+ALTER TABLE `dcs_history_res_check`
+  ADD PRIMARY KEY (`his_re_id`),
+  ADD KEY `his_exp_id` (`his_exp_id`);
+
+--
+-- Indexes for table `dcs_expert`
+--
+ALTER TABLE `dcs_expert`
+  ADD PRIMARY KEY (`expe_id`),
+  ADD KEY `expe_pre_id` (`expe_pre_id`);
+
+--
+-- Indexes for table `dcs_document`
+--
+ALTER TABLE `dcs_expert_document`
+  ADD PRIMARY KEY (`exp_doc_path`),
+  ADD KEY `expert_doc_id` (`expert_doc_id`);
+
+--
+-- Indexes for table `dcs_document`
+--
+ALTER TABLE `dcs_rating`
+  ADD PRIMARY KEY (`rat_id`),
+  ADD KEY `rat_res_id` (`rat_res_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -10983,6 +11232,41 @@ ALTER TABLE `dcs_tourist`
 ALTER TABLE `dcs_tou_promotion`
   MODIFY `tou_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีของตารางนักท่องเที่ยวที่ใช้โปรโมชัน';
 
+--
+-- AUTO_INCREMENT for table `dcs_restaurant`
+--
+ALTER TABLE `dcs_restaurant`
+  MODIFY `res_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีของตารางร้านอาหาร', AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `dcs_ingredient`
+--
+ALTER TABLE `dcs_ingredient`
+  MODIFY `ing_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีของตารางวัตถุดิบอาหาร', AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `dcs_history_formalin_check`
+--
+ALTER TABLE `dcs_history_formalin_check`
+  MODIFY `his_fom_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีของตารางตรวจสารฟอร์มาลีน';
+
+--
+-- AUTO_INCREMENT for table `dcs_history_formalin_check`
+--
+ALTER TABLE `dcs_history_res_check`
+  MODIFY `his_re_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีของตารางตรวจสอบร้านอาหาร';
+
+--
+-- AUTO_INCREMENT for table `dcs_expert`
+--
+ALTER TABLE `dcs_expert`
+  MODIFY `expe_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีของตารางผู้เชี่ยวชาญ', AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `dcs_expert`
+--
+ALTER TABLE `dcs_rating`
+  MODIFY `rat_id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'ไอดีของตารางการโหวต', AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
@@ -11126,6 +11410,62 @@ ALTER TABLE `dcs_tourist_image`
 ALTER TABLE `dcs_tou_promotion`
   ADD CONSTRAINT `dcs_tou_promotion_ibfk_1` FOREIGN KEY (`tou_tus_id`) REFERENCES `dcs_tourist` (`tus_id`),
   ADD CONSTRAINT `dcs_tou_promotion_ibfk_2` FOREIGN KEY (`tou_pro_id`) REFERENCES `dcs_promotions` (`pro_id`);
+
+--
+-- Constraints for table `dcs_restaurant`
+--
+ALTER TABLE `dcs_restaurant`
+  ADD CONSTRAINT `dcs_restaurant_ibfk_1` FOREIGN KEY (`res_ent_id`) REFERENCES `dcs_entrepreneur` (`ent_id`),
+  ADD CONSTRAINT `dcs_restaurant_ibfk_2` FOREIGN KEY (`res_cat_id`) REFERENCES `dcs_com_category` (`com_cat_id`),
+  ADD CONSTRAINT `dcs_restaurant_ibfk_3` FOREIGN KEY (`res_par_id`) REFERENCES `dcs_parish` (`par_id`);
+
+--
+-- Constraints for table `dcs_ingredient`
+--
+ALTER TABLE `dcs_ingredient`
+  ADD CONSTRAINT `dcs_ingredient_ibfk_1` FOREIGN KEY (`ing_res_id`) REFERENCES `dcs_restaurant` (`res_id`);
+
+--
+-- Constraints for table `dcs_ingredient_img`
+--
+ALTER TABLE `dcs_ingredient_img`
+  ADD CONSTRAINT `dcs_ingredient_img_ibfk_1` FOREIGN KEY (`ingimg_ing_id`) REFERENCES `dcs_ingredient` (`ing_id`);
+
+--
+-- Constraints for table `dcs_restaurant_img`
+--
+ALTER TABLE `dcs_restaurant_img`
+  ADD CONSTRAINT `dcs_ingredient_img_ibfk_1` FOREIGN KEY (`rimg_res_id`) REFERENCES `dcs_restaurant` (`res_id`);
+
+--
+-- Constraints for table `dcs_history_formalin_check`
+--
+ALTER TABLE `dcs_history_formalin_check`
+  ADD CONSTRAINT `dcs_history_formalin_check_ibfk_1` FOREIGN KEY (`his_ing_id`) REFERENCES `dcs_ingredient` (`ing_id`);
+
+--
+-- Constraints for table `dcs_history_res_check`
+--
+ALTER TABLE `dcs_history_res_check`
+  ADD CONSTRAINT `dcs_history_res_check_ibfk_1` FOREIGN KEY (`his_exp_id`) REFERENCES `dcs_expert` (`expe_id`);
+
+--
+-- Constraints for table `dcs_expert`
+--
+ALTER TABLE `dcs_expert`
+  ADD CONSTRAINT `dcs_expert_ibfk_1` FOREIGN KEY (`expe_pre_id`) REFERENCES `dcs_prefix` (`pre_id`);
+
+--
+-- Constraints for table `dcs_expert_document`
+--
+ALTER TABLE `dcs_expert_document`
+  ADD CONSTRAINT `dcs_expert_document_ibfk_1` FOREIGN KEY (`expert_doc_id`) REFERENCES `dcs_expert` (`expe_id`);
+
+--
+-- Constraints for table `dcs_rating`
+--
+ALTER TABLE `dcs_rating`
+  ADD CONSTRAINT `dcs_rating_ibfk_1` FOREIGN KEY (`rat_res_id`) REFERENCES `dcs_restaurant` (`res_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
