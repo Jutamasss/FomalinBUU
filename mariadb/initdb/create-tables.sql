@@ -10677,9 +10677,9 @@ CREATE TABLE `dcs_restaurant` (
   `res_name` varchar(100) NOT NULL COMMENT 'ชื่อของร้านอาหาร',
   `res_description` varchar(2000) COLLATE utf8_unicode_ci NOT NULL COMMENT 'รายละเอียดของร้านอาหาร',
   `res_type` int(10) DEFAULT 1 COMMENT 'ประเภทของร้านอาหาร ในที่สาธารณะ=1 ในสถานประกอบการ=2',
-  `res_latlon_status` int(10) DEFAULT 1 COMMENT 'สถานะการเพิ่ม lat lon ยังไม่เพิ่ม=1 เพิ่มเสร็จสิ้น=2',
   `res_lat` float(20,6) DEFAULT NULL COMMENT 'latitude ของร้านอาหาร',
   `res_lon` float(20,6) DEFAULT NULL COMMENT 'logtitude ของร้านอาหาร',
+  `res_latlon_status` int(10) DEFAULT 1 COMMENT 'สถานะการเพิ่ม lat lon ยังไม่เพิ่ม=1 เพิ่มเสร็จสิ้น=2',
   `res_ent_id` int(10) DEFAULT NULL COMMENT 'ไอดีของผู้ประกอบการ จากตาราง dcs_entrepreneur',
   `res_tel` varchar(12) COLLATE utf8_unicode_ci NOT NULL COMMENT 'เบอร์โทรร้านอาหาร',
   `res_location` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'ที่อยู่ของร้านอาหาร เป็น ตัวอักษร คำ',
@@ -10691,11 +10691,11 @@ CREATE TABLE `dcs_restaurant` (
 -- Dumping data for table `dcs_restaurant`
 --
 
-INSERT INTO `dcs_restaurant` (`res_id`, `res_code`, `res_name`, `res_description`, `res_type`, `res_lat`, `res_lon`, `res_ent_id`, `res_tel`, `res_location`, `res_cat_id`, `res_par_id`) VALUES
-(1, 'K01', 'ร้านอาหาร A',	'รายละเอียดของร้านอาหาร A', 1, 13.272218,	100.921890, 1, '0905540645', '11/11 หมู่5', 6, 1124),
-(2, 'K02', 'ร้านอาหาร B',	'รายละเอียดของร้านอาหาร B', 1, 13.272218,	100.921890, 1, '0905540645', '11/11 หมูุ่6', 6, 1124),
-(3, 'K03', 'ร้านอาหาร C',	'รายละเอียดของร้านอาหาร C', 1, NULL,	NULL, 1, '0905540645', '11/11 หมู่7', 6, 1124),
-(4, 'K04', 'ร้านอาหาร D',	'รายละเอียดของร้านอาหาร D', 1, NULL,	NULL, 1, '0905540645', '11/11 หมู่8', 6, 1124);
+INSERT INTO `dcs_restaurant` (`res_id`, `res_code`, `res_name`, `res_description`, `res_type`, `res_lat`, `res_lon`, `res_latlon_status`,`res_ent_id`, `res_tel`, `res_location`, `res_cat_id`, `res_par_id`) VALUES
+(1, 'K01', 'ร้านอาหาร A',	'รายละเอียดของร้านอาหาร A', 1, 13.272218,	100.921890, 2, 1, '0905540645', '11/11 หมู่5', 6, 1124),
+(2, 'K02', 'ร้านอาหาร B',	'รายละเอียดของร้านอาหาร B', 1, 13.272218,	100.921890, 2, 1, '0905540645', '12/11 หมูุ่6', 6, 1124),
+(3, 'K03', 'ร้านอาหาร C',	'รายละเอียดของร้านอาหาร C', 1, NULL,	NULL, 1, 1, '0905540645', '8/9 หมู่7', 6, 1124),
+(4, 'K04', 'ร้านอาหาร D',	'รายละเอียดของร้านอาหาร D', 1, NULL,	NULL, 1, 1, '0905540645', '112/10 หมู่8', 6, 1124);
 
 -- --------------------------------------------------------
 
