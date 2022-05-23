@@ -46,7 +46,11 @@ class Admin_restaurant_list extends DCS_controller
   public function show_data_list()
   {
     $_SESSION['tab_number'] = 10; //set tab number in topbar_admin.php
-    $this->output_admin('admin/manage_company/manage_restaurant/v_list_restaurant', null, null);
+    $this->load->model('Restaurant/M_dcs_restaurant', 'mere');
+    $data['arr_res'] = $this->mere->get_all_data()->result();
+    $view = 'admin/manage_company/manage_restaurant/v_list_restaurant';
+    $this->output_admin($view, $data,null);
+    // $this->output_admin('admin/manage_company/manage_restaurant/v_list_restaurant', null, null);
   }
 
 

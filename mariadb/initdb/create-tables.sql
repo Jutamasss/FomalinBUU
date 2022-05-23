@@ -10677,6 +10677,7 @@ CREATE TABLE `dcs_restaurant` (
   `res_name` varchar(100) NOT NULL COMMENT 'ชื่อของร้านอาหาร',
   `res_description` varchar(2000) COLLATE utf8_unicode_ci NOT NULL COMMENT 'รายละเอียดของร้านอาหาร',
   `res_type` int(10) DEFAULT 1 COMMENT 'ประเภทของร้านอาหาร ในที่สาธารณะ=1 ในสถานประกอบการ=2',
+  `res_latlon_status` int(10) DEFAULT 1 COMMENT 'สถานะการเพิ่ม lat lon ยังไม่เพิ่ม=1 เพิ่มเสร็จสิ้น=2',
   `res_lat` float(20,6) DEFAULT NULL COMMENT 'latitude ของร้านอาหาร',
   `res_lon` float(20,6) DEFAULT NULL COMMENT 'logtitude ของร้านอาหาร',
   `res_ent_id` int(10) DEFAULT NULL COMMENT 'ไอดีของผู้ประกอบการ จากตาราง dcs_entrepreneur',
@@ -10737,6 +10738,9 @@ CREATE TABLE `dcs_restaurant_img` (
   `rimg_res_id` int(10) NOT NULL COMMENT 'ไอดีของร้านอาหารจากตาราง dcs_restaurant'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+INSERT INTO `dcs_restaurant_img` (`rimg_img_path`, `rimg_img_name`, `rimg_res_id`) VALUES
+('617916c19dafb4.85521225.png',	'gift-box.png',	1),
+('617916f2e59d35.40611656.png',	'gift-box.png',	2);
 -- --------------------------------------------------------
 
 -- --------------------------------------------------------
@@ -10751,6 +10755,14 @@ CREATE TABLE `dcs_ingredient_img` (
   `ingimg_ing_id` int(10) NOT NULL COMMENT 'ไอดีของวัตถุดิบจากตาราง dcs_ingredient'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+INSERT INTO `dcs_ingredient_img` (`ingimg_img_path`, `ingimg_img_name`, `ingimg_ing_id`) VALUES
+('617916c19dafb4.85521225.png',	'gift-box.png',	1),
+('617916f2e59d35.40611656.png',	'gift-box.png',	2),
+('617917129d6546.60551863.png',	'gift-box.png',	3),
+('620bcbf7afa5f6.14877690.jpg',	'Couple (10).jpg',	4),
+('620bcd1019a2e5.95677655.jpg',	'การใช้สมุดโน้ตให้เกิดประโยชน์สูงสุด.jpg',	5),
+('620bce81880d04.62857762.png',	'20200514115147-247703580.png',	6),
+('620cc6251da1d7.50474736.jpg',	'4535168.jpg',	7);
 -- --------------------------------------------------------
 
 -- --------------------------------------------------------
@@ -10808,7 +10820,7 @@ CREATE TABLE `dcs_expert` (
 
 INSERT INTO `dcs_expert` (`expe_id`, `expe_fname`, `expe_lname`, `expe_username`, `expe_password`, `expe_status`, `expe_pre_id`, `expe_regis_date`) VALUES
 (1,	'นันทสิริ',	'สายแวว',	'staff_1',	'505dcb6961f3f927df15f9fec5ff7ae8',	1,	3, '2022-02-13 21:42:29'),
-(2,	'จุฑามาศ',	'ถนอมใจ',	'staff_2',	'505dcb6961f3f927df15f9fec5ff7ae8',	1,	3, '2022-02-13 21:42:29');
+(2,	'จุฑามาศ',	'ทับทอง',	'staff_2',	'505dcb6961f3f927df15f9fec5ff7ae8',	1,	3, '2022-02-13 21:42:29');
 
 -- --------------------------------------------------------
 
